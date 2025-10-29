@@ -65,7 +65,7 @@ export default function AddonsPage() {
   async function saveEdit(id: number) {
     setLoading(true)
     try {
-      const updates: Partial<Addon> = {
+      const updates = {
         name: editForm.name,
         description: editForm.description || null,
         price: editForm.price,
@@ -74,7 +74,7 @@ export default function AddonsPage() {
 
       const { error } = await supabase
         .from('addons')
-        .update(updates)
+        .update(updates as any)
         .eq('id', id)
 
       if (error) throw error
@@ -91,14 +91,14 @@ export default function AddonsPage() {
 
   async function toggleActive(id: number, currentStatus: boolean) {
     try {
-      const updates: Partial<Addon> = {
+      const updates = {
         is_active: !currentStatus,
         updated_at: new Date().toISOString(),
       }
 
       const { error } = await supabase
         .from('addons')
-        .update(updates)
+        .update(updates as any)
         .eq('id', id)
 
       if (error) throw error
@@ -133,14 +133,14 @@ export default function AddonsPage() {
 
     setLoading(true)
     try {
-      const insertPayload: Partial<Addon> = {
+      const insertPayload = {
         name: newForm.name,
         description: newForm.description || null,
         price: newForm.price,
         is_active: true,
       }
 
-      const { error } = await supabase.from('addons').insert(insertPayload)
+      const { error } = await supabase.from('addons').insert(insertPayload as any)
 
       if (error) throw error
 
