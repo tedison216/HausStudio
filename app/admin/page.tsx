@@ -121,18 +121,18 @@ export default function AdminPage() {
     }
   }
 
-  async function updateBookingStatus(bookingId: string, newStatus: 'pending' | 'confirmed' | 'cancelled') {
+  async function updateBookingStatus(bookingId: string, newStatus: string) {
     try {
       const { error } = await supabase
         .from('bookings')
-        .update({ status: newStatus, updated_at: new Date().toISOString() })
+        .update({ status: newStatus, updated_at: new Date().toISOString() } as any)
         .eq('id', bookingId)
 
       if (error) throw error
 
-      loadBookings()
+      await loadBookings()
     } catch (error) {
-      console.error('Error updating booking:', error)
+      console.error('Error updating booking status:', error)
       alert('Failed to update booking status')
     }
   }
