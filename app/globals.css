@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 40% 98%;
+    --foreground: 20 14% 20%;
+  }
+
+  body {
+    @apply bg-cream-100 text-brown-900 font-sans;
+    background-image: radial-gradient(circle at 1px 1px, rgba(151, 118, 105, 0.08) 1px, transparent 0);
+    background-size: 32px 32px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-brown-900;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brown-700 text-cream-50 px-6 py-3 rounded-lg font-semibold shadow-lg shadow-brown-200 hover:-translate-y-0.5 hover:bg-brown-800 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-cream-400 text-brown-900 px-6 py-3 rounded-lg font-medium shadow hover:bg-cream-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-outline {
+    @apply border-2 border-brown-700 text-brown-700 px-6 py-3 rounded-lg font-medium hover:bg-brown-700 hover:text-cream-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 border border-brown-200 rounded-xl focus:outline-none focus:border-brown-600 focus:ring-2 focus:ring-brown-200 bg-white text-brown-900 placeholder-brown-400 shadow-inner;
+  }
+
+  .card {
+    @apply bg-white/95 backdrop-blur rounded-2xl shadow-xl p-8 border border-brown-100/70;
+  }
+
+  .section-title {
+    @apply font-serif text-4xl md:text-5xl font-semibold text-brown-900 tracking-tight mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-brown-600 mb-8 max-w-2xl mx-auto;
+  }
+
+  .select-field {
+    @apply relative w-full;
+  }
+
+  .select-field select {
+    @apply input-field appearance-none pr-12 cursor-pointer;
+    background-image: linear-gradient(45deg, transparent 50%, theme('colors.brown.600') 50%),
+                      linear-gradient(135deg, theme('colors.brown.600') 50%, transparent 50%),
+                      linear-gradient(to right, theme('colors.brown.200'), theme('colors.brown.200'));
+    background-position: calc(100% - 25px) calc(50% - 6px), calc(100% - 18px) calc(50% - 6px), calc(100% - 3rem) 50%;
+    background-size: 7px 7px, 7px 7px, 1px 50%;
+    background-repeat: no-repeat;
+  }
+
+  .select-field::after {
+    content: '';
+    @apply pointer-events-none absolute inset-y-0 right-4 flex items-center;
+  }
+
+  .checkbox-field {
+    @apply relative flex items-center space-x-3 py-3 px-4 border border-brown-200 rounded-xl transition-all duration-200 bg-white shadow-sm;
+  }
+
+  .checkbox-field input[type='checkbox'] {
+    @apply w-5 h-5 rounded border-2 border-brown-300 text-brown-700 focus:ring-brown-500;
+  }
+
+  .checkbox-field:hover {
+    @apply border-brown-400 shadow-md translate-y-[-1px];
+  }
+
+  .checkbox-field-active {
+    @apply border-brown-600 bg-brown-50 shadow-lg;
+  }
+}
