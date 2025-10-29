@@ -50,7 +50,7 @@ export default function PricingPage() {
       for (const item of pricing) {
         const { error } = await supabase
           .from('pricing')
-          .update({ price: item.price, updated_at: new Date().toISOString() })
+          .update({ price: item.price, updated_at: new Date().toISOString() } as any)
           .eq('id', item.id)
         
         if (error) throw error
