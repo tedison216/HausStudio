@@ -57,7 +57,7 @@ export default function SettingsPage() {
     try {
       await supabase
         .from('studios')
-        .update({ is_active: !currentStatus })
+        .update({ is_active: !currentStatus } as any)
         .eq('id', studioId)
 
       setStudios(studios.map(s => 
@@ -78,7 +78,7 @@ export default function SettingsPage() {
       await supabase.from('settings').upsert([
         { key: 'whatsapp_number', value: whatsappNumber },
         { key: 'additional_hour_price', value: additionalHourPrice }
-      ], { onConflict: 'key' })
+      ] as any, { onConflict: 'key' })
 
       setSuccess(true)
       setTimeout(() => setSuccess(false), 3000)
