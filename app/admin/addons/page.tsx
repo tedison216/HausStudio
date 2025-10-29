@@ -12,9 +12,9 @@ interface Addon {
   name: string
   description: string | null
   price: number
-  is_active: boolean
-  created_at?: string
-  updated_at?: string
+  is_active: boolean | null
+  created_at: string | null
+  updated_at: string | null
 }
 
 export default function AddonsPage() {
@@ -74,7 +74,7 @@ export default function AddonsPage() {
 
       const { error } = await supabase
         .from('addons')
-        .update(updates as any)
+        .update(updates)
         .eq('id', id)
 
       if (error) throw error
@@ -98,7 +98,7 @@ export default function AddonsPage() {
 
       const { error } = await supabase
         .from('addons')
-        .update(updates as any)
+        .update(updates)
         .eq('id', id)
 
       if (error) throw error
@@ -140,7 +140,7 @@ export default function AddonsPage() {
         is_active: true,
       }
 
-      const { error } = await supabase.from('addons').insert(insertPayload as any)
+      const { error } = await supabase.from('addons').insert(insertPayload)
 
       if (error) throw error
 
@@ -306,7 +306,7 @@ export default function AddonsPage() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => toggleActive(addon.id, addon.is_active)}
+                        onClick={() => toggleActive(addon.id, addon.is_active ?? false)}
                         className={`px-4 py-2 rounded-lg font-medium ${
                           addon.is_active
                             ? 'bg-gray-200 text-gray-800 hover:bg-gray-300'

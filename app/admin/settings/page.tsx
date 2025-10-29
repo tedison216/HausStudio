@@ -9,7 +9,7 @@ import { ArrowLeft, Save } from 'lucide-react'
 interface Studio {
   id: number
   name: string
-  is_active: boolean
+  is_active: boolean | null
 }
 
 export default function SettingsPage() {
@@ -57,7 +57,7 @@ export default function SettingsPage() {
     try {
       await supabase
         .from('studios')
-        .update({ is_active: !currentStatus } as any)
+        .update({ is_active: !currentStatus })
         .eq('id', studioId)
 
       setStudios(studios.map(s => 
@@ -78,7 +78,7 @@ export default function SettingsPage() {
       await supabase.from('settings').upsert([
         { key: 'whatsapp_number', value: whatsappNumber },
         { key: 'additional_hour_price', value: additionalHourPrice }
-      ] as any, { onConflict: 'key' })
+      ], { onConflict: 'key' })
 
       setSuccess(true)
       setTimeout(() => setSuccess(false), 3000)
@@ -119,7 +119,7 @@ export default function SettingsPage() {
                   </div>
                   <button
                     type="button"
-                    onClick={() => toggleStudio(studio.id, studio.is_active)}
+                    onClick={() => toggleStudio(studio.id, studio.is_active ?? false)}
                     className={`px-4 py-2 rounded-lg font-medium ${
                       studio.is_active
                         ? 'bg-green-200 text-green-800 hover:bg-green-300'

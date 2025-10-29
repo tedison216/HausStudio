@@ -37,13 +37,13 @@ export function calculateEndTime(startTime: string, durationHours: number): stri
 }
 
 export function isTimeSlotAvailable(
-  existingBookings: Array<{ start_time: string; duration_hours: number; additional_hour: boolean }>,
-  newStartTime: string,
-  newDuration: number,
-  newAdditionalHour: boolean
+  existingBookings: Array<{ start_time: string; duration_hours: number; additional_hour: boolean | null }>,
+  requestedStartTime: string,
+  requestedDuration: number,
+  requestedAdditionalHour: boolean
 ): boolean {
-  const newStart = timeToMinutes(newStartTime)
-  const totalNewDuration = newDuration + (newAdditionalHour ? 1 : 0)
+  const newStart = timeToMinutes(requestedStartTime)
+  const totalNewDuration = requestedDuration + (requestedAdditionalHour ? 1 : 0)
   const newEnd = newStart + totalNewDuration * 60
 
   for (const booking of existingBookings) {
@@ -70,7 +70,7 @@ function timeToMinutes(time: string): number {
 }
 
 export function getBookedTimeSlots(
-  existingBookings: Array<{ start_time: string; duration_hours: number; additional_hour: boolean }>
+  existingBookings: Array<{ start_time: string; duration_hours: number; additional_hour: boolean | null }>
 ): Array<{ start: string; end: string }> {
   const bookedSlots: Array<{ start: string; end: string }> = []
   
@@ -88,7 +88,7 @@ export function getBookedTimeSlots(
 
 export function getAvailableTimeSlots(
   date: string,
-  existingBookings: Array<{ start_time: string; duration_hours: number; additional_hour: boolean }>,
+  existingBookings: Array<{ start_time: string; duration_hours: number; additional_hour: boolean | null }>,
   durationHours: number,
   additionalHour: boolean
 ): string[] {

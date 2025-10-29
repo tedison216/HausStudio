@@ -14,7 +14,7 @@ interface BookingDetails {
   booking_date: string
   start_time: string
   duration_hours: number
-  additional_hour: boolean
+  additional_hour: boolean | null
   customer_name: string
   customer_phone: string
   customer_email: string | null
@@ -38,6 +38,8 @@ function ConfirmationContent() {
   }, [bookingId])
 
   async function loadBookingDetails() {
+    if (!bookingId) return
+    
     try {
       // Load booking
       const { data: bookingData, error: bookingError } = await supabase
@@ -74,7 +76,7 @@ function ConfirmationContent() {
           studio_name: bookingData.studios.name,
           addons: addonsData?.map(a => ({
             name: a.addons.name,
-            quantity: a.quantity,
+            quantity: a.quantity ?? 1,
             price: a.price
           })) || []
         })

@@ -13,7 +13,7 @@ interface Booking {
   booking_date: string
   start_time: string
   duration_hours: number
-  additional_hour: boolean
+  additional_hour: boolean | null
   customer_name: string
   customer_phone: string
   total_price: number
@@ -123,9 +123,9 @@ export default function AdminPage() {
 
   async function updateBookingStatus(bookingId: string, newStatus: string) {
     try {
-      const { error } = await supabase
+      const { error} = await supabase
         .from('bookings')
-        .update({ status: newStatus, updated_at: new Date().toISOString() } as any)
+        .update({ status: newStatus, updated_at: new Date().toISOString() })
         .eq('id', bookingId)
 
       if (error) throw error
